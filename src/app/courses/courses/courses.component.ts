@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+
 import { Course } from '../model/course';
 import { CoursesService } from '../services/courses.service';
 
@@ -9,16 +11,15 @@ import { CoursesService } from '../services/courses.service';
 })
 export class CoursesComponent implements OnInit {
 
-  courses:Course[] = [
-    { _id: '1', name: 'Angular', category: 'Frontend'},
-    { _id: '2', name: 'Spring', category: 'Backend' }  ,
-    { _id: '3', name: 'Java', category: 'Programming Languages'}
+  courses:Observable<Course[]>;
+  //coursesService: CoursesService;
 
-  ];
   displayedColumns = ['name', 'category'];
 
-  constructor(private coursersService:CoursesService) {
+  constructor(private coursesService: CoursesService) {
     //this.courses = [];
+    //this.coursesService = new CoursesService();
+    this.courses = this.coursesService.list();
    }
 
   ngOnInit(): void {
